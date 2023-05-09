@@ -15,6 +15,9 @@ public class CategoryService {
     @Autowired
     private CategoryRepository repo;
 
+    public CategoryService(CategoryRepository categoryRepository) {
+    }
+
     public Category save(Category category) {
         return repo.saveAndFlush(category);
     }

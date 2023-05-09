@@ -8,11 +8,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "CATEGORIA")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Category {
 
     @Id
@@ -32,4 +36,7 @@ public class Category {
     @Column(name = "TIPO_UNIDADE")
     @Enumerated(EnumType.STRING)
     private UnitType unitType;
+
+    public Category(int i, String s) {
+    }
 }
