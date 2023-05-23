@@ -2,6 +2,7 @@ package com.trabalhoRoberto.demo.controllers;
 
 import com.trabalhoRoberto.demo.dtos.CategoryDto;
 import com.trabalhoRoberto.demo.entities.Category;
+import com.trabalhoRoberto.demo.exceptions.CategoryException;
 import com.trabalhoRoberto.demo.services.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
@@ -28,19 +29,20 @@ public class CategoryController {
     private CategoryService service;
 
     @PostMapping("")
-    public ResponseEntity<Category> saveEquip(@Valid @RequestBody CategoryDto dto) {
+    public ResponseEntity<Category> saveEquip(@Valid @RequestBody CategoryDto dto) throws CategoryException {
         var equip = new Category();
         BeanUtils.copyProperties(dto, equip);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(equip));
     }
 
     @GetMapping("")
-    public ResponseEntity<List<Category>> findAll() {
+    public ResponseEntity<List<Category>> findAll() throws CategoryException {
         return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getById(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity<Object> getById(@PathVariable(value = "id") Integer id) throws CategoryException {
         Optional<Category> optionalEquipment = service.findById(id);
         if (!optionalEquipment.isPresent()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Category not Found!");
@@ -50,7 +52,7 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> update(@PathVariable(value = "id") Integer id,
-                                         @RequestBody @Valid CategoryDto dto) {
+                                         @RequestBody @Valid CategoryDto dto) throws CategoryException {
         Optional<Category> optionalEquip = service.findById(id);
         if (!optionalEquip.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category not found");
@@ -62,7 +64,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteEquip(@PathVariable(value = "id") Integer id) {
+    public ResponseEntity<Object> deleteEquip(@PathVariable(value = "id") Integer id) throws CategoryException {
         Optional<Category> newEquip = service.findById(id);
         if (!newEquip.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category not found");
