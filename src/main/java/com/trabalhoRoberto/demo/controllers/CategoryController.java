@@ -4,7 +4,6 @@ import com.trabalhoRoberto.demo.dtos.CategoryDto;
 import com.trabalhoRoberto.demo.entities.Category;
 import com.trabalhoRoberto.demo.exceptions.CategoryException;
 import com.trabalhoRoberto.demo.services.CategoryService;
-import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
